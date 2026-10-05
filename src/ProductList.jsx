@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './ProductList.css'
 import { useDispatch, useSelector } from 'react-redux';
 import CartItem from './CartItem';
-import {addItem} from './CartSlice';
+import {addItem, removeItem, updateQuantity } from './CartSlice';
 
 function ProductList({ onHomeClick }) {
     const dispatch = useDispatch();
@@ -266,7 +266,7 @@ function ProductList({ onHomeClick }) {
           ...prevState, // Spread the previous state to retain existing entries
           [product.name]: true, // Set the current product's name as a key with value 'true' to mark it as added
         }));
-      };
+    };
 
     return (
         <div>
@@ -298,7 +298,7 @@ function ProductList({ onHomeClick }) {
                                     <span style={{
                                         position: 'absolute',
                                         top: '0px',
-                                        right: '-10px',
+                                        right: '0px',
                                         backgroundColor: 'red',
                                         color: 'white',
                                         borderRadius: '50%',
