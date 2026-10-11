@@ -326,25 +326,28 @@ function ProductList({ onHomeClick }) {
                             <div>{category.category}</div> {/* Display the category name */}
                             </h1>
                             <div className="product-list"> {/* Container for the list of plant cards */}
-                            {category.plants.map((plant, plantIndex) => ( // Loop through each plant in the current category
-                                <div className="product-card" key={plantIndex}> {/* Unique key for each plant card */}
-                                <img 
-                                    className="product-image" 
-                                    src={plant.image} // Display the plant image
-                                    alt={plant.name} // Alt text for accessibility
-                                />
-                                <div className="product-title">{plant.name}</div> {/* Display plant name */}
-                                {/* Display other plant details like description and cost */}
-                                <div className="product-description">{plant.description}</div> {/* Display plant description */}
-                                <div className="product-cost">${plant.cost}</div> {/* Display plant cost */}
-                                <button
-                                    className="product-button"
-                                    onClick={() => handleAddToCart(plant)} // Handle adding plant to cart
-                                >
-                                    Add to Cart
-                                </button>
-                                </div>
-                            ))}
+                            {category.plants.map((plant, plantIndex) => { // Loop through each plant in the current category
+                                const isAdded = cartItems.some(item => item.name === plant.name); // True if this plant is already in the cart
+                                return (
+                                    <div className="product-card" key={plantIndex}> {/* Unique key for each plant card */}
+                                        <img
+                                            className="product-image"
+                                            src={plant.image} // Display the plant image
+                                            alt={plant.name} // Alt text for accessibility
+                                        />
+                                        <div className="product-title">{plant.name}</div> {/* Display plant name */}
+                                        <div className="product-description">{plant.description}</div> {/* Display plant description */}
+                                        <div className="product-cost">${plant.cost}</div> {/* Display plant cost */}
+                                        <button
+                                            className={`product-button ${isAdded ? 'added-to-cart' : ''}`}
+                                            onClick={() => handleAddToCart(plant)} // Handle adding plant to cart
+                                            disabled={isAdded} // Disable once the plant is in the cart
+                                        >
+                                            {isAdded ? 'Added to Cart' : 'Add to Cart'}
+                                        </button>
+                                    </div>
+                                );
+                            })}
                             </div>
                         </div>
                     ))}

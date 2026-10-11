@@ -14,6 +14,9 @@ const CartItem = ({ onContinueShopping }) => {
       .toFixed(2);
   };
 
+  const calculateTotalPlants = () =>
+  cart.reduce((sum, item) => sum + item.quantity, 0);
+
   // Subtotal for a single item (price x quantity)
   const calculateTotalCost = (item) => {
     return (parseFloat(item.cost) * item.quantity).toFixed(2);
@@ -78,9 +81,10 @@ const CartItem = ({ onContinueShopping }) => {
         </div>
       )}
 
-      <div style={{ marginTop: '20px', color: 'black' }} className="total_cart_amount">
+        <div style={{ marginTop: '20px', color: 'black' }} className="total_cart_amount">
+        <h2 style={{ color: 'black' }}>Total Plants: {calculateTotalPlants()}</h2>
         <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount()}</h2>
-      </div>
+        </div>
 
       <div className="continue_shopping_btn">
         <button className="get-started-button" onClick={(e) => handleContinueShopping(e)}>
